@@ -1,13 +1,18 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id "com.palantir.docker" version "0.21.0" apply true
 	id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.deelef'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+group = projectGroup
+version = projectVersion
+
+compileJava {
+	sourceCompatibility = "8"
+	targetCompatibility = "8"
+}
 
 repositories {
 	mavenCentral()
@@ -20,7 +25,17 @@ configurations {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '2.4.3'
+	implementation group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.4.3'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+docker {
+	pull true
+	noCache true
+
+	name projectName + ':' + projectVersion
+
+	files bootJar.archivePath
+	buildArgs(['JAR_FILE': bootJar.archiveName])
 }

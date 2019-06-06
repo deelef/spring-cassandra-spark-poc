@@ -1,4 +1,4 @@
 server.port: 8085
 
 spark.app.name: spring-cassandra-spark-poc
-spark.master: spark://localhost:7077
+spark.master: spark://127.0.0.1:7077

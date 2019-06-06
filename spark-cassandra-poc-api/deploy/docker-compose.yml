@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+    spark-cassandra-poc-api:
+        image: spark-cassandra-poc-api:0.1.0-SNAPSHOT
+        ports:
+            - "8085:8085"
+        environment:
+            - "SPARK_MASTER=spark://spark-master:7077"
+
+networks:
+    default:
+        external:
+            name: cluster

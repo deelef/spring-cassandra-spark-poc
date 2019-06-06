@@ -17,7 +17,10 @@ public class SparkConfiguration {
 
     @Bean
     public SparkConf conf() {
-        return new SparkConf().setAppName(appName).setMaster(masterUri);
+        return new SparkConf().setAppName(appName).setMaster(masterUri)
+//                .set("spark.local.ip","10.0.75.1") // helps when multiple network interfaces are present. The driver must be in the same network as the master and slaves
+//                .set("spark.driver.host","10.0.75.1") // same as above. This duality might disappear in a future version
+                ;
     }
 
     @Bean
