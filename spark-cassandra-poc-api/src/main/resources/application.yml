@@ -3,6 +3,10 @@ server.port: 8085
 spark.app.name: spring-cassandra-spark-poc
 spark.master: spark://127.0.0.1:7077
 
+
+cassandra.host: cassandra
+cassandra.keyspace: example
+
 docker:
     host:
         internal: 172.26.27.81 # for development purpose, set it from ipconfig > Ethernet adapter vEthernet (Default Switch)
