@@ -1,0 +1,26 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.deelef'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	runtime.exclude group: "org.slf4j", module: "slf4j-log4j12"
+	compile.exclude group: "org.slf4j", module: "slf4j-log4j12"
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '2.4.3'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
