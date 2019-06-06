@@ -1,5 +1,6 @@
 package com.deelef.sparkcassandrapocapi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,12 +16,18 @@ public class SparkConfiguration {
     @Value("${spark.master}")
     private String masterUri;
 
+    @Value("${docker.host.internal}")
+    private String dockerHostInternal;
+
     @Bean
     public SparkConf conf() {
-        return new SparkConf().setAppName(appName).setMaster(masterUri)
-//                .set("spark.local.ip","10.0.75.1") // helps when multiple network interfaces are present. The driver must be in the same network as the master and slaves
-//                .set("spark.driver.host","10.0.75.1") // same as above. This duality might disappear in a future version
-                ;
+        SparkConf conf = new SparkConf().setAppName(appName).setMaster(masterUri);
+        if(StringUtils.isNotBlank(dockerHostInternal)) {
+            conf.set("spark.local.ip",dockerHostInternal);
+            conf.set("spark.driver.host",dockerHostInternal);
+        }
+        return conf;
+
     }
 
     @Bean

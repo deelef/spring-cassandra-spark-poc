@@ -6,6 +6,7 @@ services:
             - "8085:8085"
         environment:
             - "SPARK_MASTER=spark://spark-master:7077"
+            - "DOCKER_HOST_INTERNAL="
 
 networks:
     default:
