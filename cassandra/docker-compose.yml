@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+    cassandra:
+        image: cassandra:3.11
+        volumes:
+        - "cassandra_data:/var/lib/cassandra"
+        deploy:
+            replicas: 1
+            resources:
+                limits:
+                    memory: 5G
+                reservations:
+                    memory: 64M
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 1
+        ports:
+            - "9042:9042"
+        networks:
+            default:
+                aliases:
+                    - cassandra
+
+volumes:
+    cassandra_data:
+
